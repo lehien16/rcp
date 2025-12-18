@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lí người dùng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+</head>
+
+<body class="bg-gray-50">
+<div class="flex h-screen">
+    
+    <!-- Sidebar -->
+    <div id="shared-sidebar" class="w-65"></div>
+
+    <div class="flex-1 overflow-auto">
+        <!-- Header -->
+        <div id="shared-header"></div>
+
+            <main class="p-8">
+                <h1 class="text-3xl font-bold text-gray-800 mb-8 border-b pb-4">Quản lí người dùng</h1>
+
+                <!-- ====== CARDS THỐNG KÊ USER ====== -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+
+                <!-- Tổng người dùng -->
+                <div class="rounded-xl shadow-md p-6 border border-white/40
+                    bg-[linear-gradient(135deg,rgba(255,215,186,0.45),rgba(255,255,255,0.7),rgba(244,196,113,0.45))] 
+                    hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
+
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-xl font-bold text-gray-500">Tổng người dùng</p>
+                            <p class="text-2xl font-bold mt-2 text-gray-800">324</p>
+                        </div>
+
+                        <div class="bg-yellow-50 text-yellow-600 p-3 rounded-lg">
+                            <i data-feather="users" class="text-3xl"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Admin -->
+                <div class="rounded-xl shadow-md p-6 border border-white/40
+                    bg-[linear-gradient(135deg,#FFF8EB,#FFDF9E,#F2C15F)]
+                    hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-xl font-bold text-gray-500">Quản trị viên</p>
+                            <p class="text-2xl font-bold text-gray-800 mt-2">5</p>
+                        </div>
+                        <div class="bg-purple-50 text-purple-600 p-3 rounded-lg">
+                            <i data-feather="shield" class="text-3xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Khách hàng -->
+                <div class="rounded-xl shadow-md p-6 border border-white/40
+                    bg-[linear-gradient(135deg,#FFF6E3,#FFE2A8,#FFCD6A)]
+                    hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-xl font-bold text-gray-500">Khách hàng</p>
+                            <p class="text-2xl font-bold text-gray-800 mt-2">298</p>
+                        </div>
+                        <div class="bg-blue-50 text-green-600 p-3 rounded-lg">
+                            <i data-feather="user" class="text-3xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ====== BẢNG NGƯỜI DÙNG ====== -->
+            <div class="bg-slate-50 rounded-xl shadow-lg border-2 border-slate-300 ring-1 ring-slate-200 p-6">
+
+
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold text-gray-800">Danh sách người dùng</h2>
+                        <button onclick="console.log('Button clicked'); openAdd();"
+                            class="px-5 py-2.5 rounded-lg font-semibold
+                            bg-white/60 backdrop-blur
+                            border border-amber-200/60
+                            text-amber-700 shadow-sm
+                            hover:bg-amber-100/70 hover:shadow-md">
+                            <i class="fa fa-plus mr-1"></i>Thêm người dùng
+                        </button>
+                </div>
+
+                <div class="max-h-[420px] overflow-y-auto overflow-x-auto rounded-lg">
+                    <table class="min-w-[1600px] table-fixed bg-white border-2 border-slate-300 rounded-xl overflow-hidden" style="white-space: nowrap;">
+                    <thead class="bg-gradient-to-r from-[#FFF3C4] via-[#F5D77A] to-[#EAC35B]
+              sticky top-0 z-10 shadow-md">
+
+                        <tr>
+                            <th class="px-4 py-3 w-[100px] text-nowrap">Mã ND</th>
+                            <th class="px-4 py-3 w-[180px] text-nowrap">Họ Tên</th>
+                            <th class="px-4 py-3 w-[240px] text-nowrap">Email</th>
+                            <th class="px-4 py-3 w-[140px] text-center text-nowrap">SĐT</th>
+                            <th class="px-4 py-3 w-[140px] text-center text-nowrap">Ngày Sinh</th>
+                            <th class="px-4 py-3 w-[160px] text-nowrap">Thành Phố</th>
+                            <th class="px-4 py-3 w-[160px] text-nowrap">Tên ĐN</th>
+                            <th class="px-4 py-3 w-[120px] text-center text-nowrap">Mật Khẩu</th>
+                            <th class="px-4 py-3 w-[160px] text-center text-nowrap">Quyền hạn</th>
+                            <th class="px-4 py-3 w-[120px] text-center text-nowrap">Avatar</th>
+                            <th class="px-4 py-3 w-[140px] text-center text-nowrap">Ngày Tạo</th>
+                            <th class="px-4 py-3 w-[160px] text-center text-nowrap">Hành động</th>
+
+                        </tr>
+                    </thead>
+
+
+                    <tbody id="userTable" class="divide-y divide-gray-100 bg-white"></tbody>
+                </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<!-- MODAL -->
+<div id="userModal"
+     class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+    <div class="bg-white rounded-lg w-[600px] p-6 relative z-50">
+
+        <h3 id="modalTitle" class="text-lg font-semibold mb-4"></h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <div>
+                <label class="text-sm font-medium">
+                    Mã người dùng
+                </label>
+                <input id="MaND" class="border p-2 rounded w-full bg-gray-100" readonly placeholder="Tự động tạo">
+            </div>
+
+            <div>
+                <label class="text-sm font-medium">
+                    Họ tên <span class="text-red-500">*</span>
+                </label>
+                <input id="HoTen" class="border p-2 rounded w-full">
+            </div>
+
+            <div>
+                <label class="text-sm font-medium">
+                    Email <span class="text-red-500">*</span>
+                </label>
+                <input id="Email" class="border p-2 rounded w-full">
+            </div>
+
+            <div>
+                <label class="text-sm font-medium">
+                    SĐT <span class="text-red-500">*</span>
+                </label>
+                <input
+                    id="SoDT"
+                    class="border p-2 rounded w-full"
+                    type="tel"
+                    maxlength="10"
+                    oninput="limitPhone(this)"
+                    placeholder="0xxxxxxxxx">
+
+            </div>
+
+            <div>
+                <label class="text-sm font-medium">
+                    Ngày sinh <span class="text-red-500">*</span>
+                </label>
+                <input id="NgaySinh" type="date" class="border p-2 rounded w-full">
+            </div>
+
+            <div>
+                <label class="text-sm font-medium">
+                    Thành phố <span class="text-red-500">*</span>
+                </label>
+                <select id="ThanhPho" class="border p-2 rounded w-full">
+                    <option value="">-- Chọn thành phố --</option>
+                    <option value="Hà Nội">Hà Nội</option>
+                    <option value="TP.HCM">TP. Hồ Chí Minh</option>
+                    <option value="Đà Nẵng">Đà Nẵng</option>
+                    <option value="Hải Phòng">Hải Phòng</option>
+                    <option value="Cần Thơ">Cần Thơ</option>
+                    <option value="Huế">Huế</option>
+                    <option value="Nha Trang">Nha Trang</option>
+                    <option value="Vũng Tàu">Vũng Tàu</option>
+                    <option value="Quy Nhon">Quy Nhon</option>
+                    <option value="Pleiku">Pleiku</option>
+                    <option value="Buôn Ma Thuột">Buôn Ma Thuột</option>
+                    <option value="Đà Lạt">Đà Lạt</option>
+                    <option value="Phan Thiết">Phan Thiết</option>
+                    <option value="Long Xuyên">Long Xuyên</option>
+                    <option value="Rạch Giá">Rạch Giá</option>
+                    <option value="Cà Mau">Cà Mau</option>
+                    <option value="Vinh">Vinh</option>
+                    <option value="Thanh Hóa">Thanh Hóa</option>
+                    <option value="Nam Định">Nam Định</option>
+                    <option value="Thái Nguyên">Thái Nguyên</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="text-sm font-medium">
+                    Tên đăng nhập <span class="text-red-500">*</span>
+                </label>
+                <input id="TenDN" class="border p-2 rounded w-full">
+            </div>
+
+            <div id="currentPasswordDiv" class="hidden">
+                <label class="text-sm font-medium">
+                    Mật khẩu hiện tại <span class="text-red-500">*</span>
+                </label>
+                <input id="MatKhauHienTai" type="password" class="border p-2 rounded w-full" placeholder="Nhập mật khẩu hiện tại để xác nhận">
+            </div>
+
+            <div>
+                <label class="text-sm font-medium">
+                    <span id="passwordLabel">Mật khẩu <span class="text-red-500">*</span></span>
+                </label>
+                <input id="MatKhau" type="password" class="border p-2 rounded w-full" placeholder="Nhập mật khẩu">
+            </div>
+
+            <div>
+                <label class="text-sm font-medium">
+                    Quyền hạn <span class="text-red-500">*</span>
+                </label>
+                <select id="QuyenHan" class="border p-2 rounded w-full">
+                    <option value="">-- Chọn quyền hạn --</option>
+                    <option value="Khách hàng">👤 Khách hàng</option>
+                    <option value="Quản trị viên">🛡️ Quản trị viên</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="text-sm font-medium">
+                    Avatar
+                </label>
+                <div class="space-y-2">
+                    <input type="file" id="AvatarFile" accept="image/*" class="border p-2 rounded w-full" onchange="previewAvatar(this)">
+                    <input id="Avatar" type="hidden">
+                    <div id="avatarPreview" class="hidden">
+                        <img id="previewImg" class="w-20 h-20 rounded-full object-cover border-2 border-gray-300" alt="Avatar preview">
+                        <button type="button" onclick="removeAvatar()" class="text-red-500 text-sm mt-1">Xóa ảnh</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="flex justify-end gap-3 mt-6">
+            <button onclick="closeModal()" class="px-4 py-2 border rounded hover:bg-gray-50">Hủy</button>
+            <button onclick="saveUser()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Lưu</button>
+        </div>
+    </div>
+</div>
+<script>
+fetch("../api/user/get_users.php")
+    .then(response => {
+        console.log("Response status:", response.status);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        return response.json();
+    })
+    
+    .then(users => {
+        console.log("Dữ liệu từ bảng NguoiDung:", users);
+        window.users = users;
+        
+        const tbody = document.getElementById("userTable");
+        tbody.innerHTML = "";
+
+        if (users.error) {
+            tbody.innerHTML = `<tr><td colspan="11" class="px-6 py-4 text-center text-red-500">Lỗi database: ${users.error}</td></tr>`;
+            return;
+        }
+
+        if (!Array.isArray(users) || users.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="11" class="px-6 py-4 text-center text-gray-500">Bảng NguoiDung không có dữ liệu</td></tr>`;
+            return;
+        }
+
+        const totalUsers = users.length;
+        const admins = users.filter(u => u.QuyenHan === 'Quản trị viên').length;
+        const customers = users.filter(u => u.QuyenHan === 'Khách hàng').length;
+        
+        document.querySelector('.grid > div:nth-child(1) .text-2xl').textContent = totalUsers;
+        document.querySelector('.grid > div:nth-child(2) .text-2xl').textContent = admins;
+        document.querySelector('.grid > div:nth-child(3) .text-2xl').textContent = customers;
+
+        users.forEach((user, index) => {
+            const row = `
+            <tr class="odd:bg-white even:bg-slate-50 hover:bg-blue-50 transition">
+                <td class="px-4 py-3 text-sm font-medium text-nowrap">${user.MaND}</td>
+                <td class="px-4 py-3 text-sm font-semibold text-nowrap">${user.HoTen}</td>
+                <td class="px-4 py-3 text-sm text-blue-600 text-nowrap overflow-hidden text-ellipsis" title="${user.Email}">${user.Email}</td>
+                <td class="px-4 py-3 text-sm text-center text-nowrap">${user.SoDT || 'Chưa có'}</td>
+                <td class="px-4 py-3 text-sm text-center text-nowrap">${user.NgaySinh || ''}</td>
+                <td class="px-4 py-3 text-sm text-nowrap">${user.ThanhPho || ''}</td>
+                <td class="px-4 py-3 text-sm text-nowrap">${user.TenDN}</td>
+                <td class="px-4 py-3 text-sm text-center text-nowrap">••••••</td>
+                <td class="px-4 py-3 text-sm text-center text-nowrap">
+                    <span class="px-3 py-1 text-xs rounded-full font-medium whitespace-nowrap
+                        ${(user.QuyenHan === 'Quản trị viên')
+                            ? 'bg-red-100 text-red-700 border border-red-200'
+                            : 'bg-blue-100 text-blue-700 border border-blue-200'}">
+                        ${(user.QuyenHan === 'Quản trị viên') 
+                            ? '🛡️ Quản trị viên' 
+                            : '👤 Khách hàng'}
+                    </span>
+                </td>
+                <td class="px-4 py-3 text-sm text-center text-nowrap">
+                    <div class="w-8 h-8 mx-auto rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                        ${user.Avatar ? 
+                            `<img src="${user.Avatar}" class="w-full h-full object-cover" alt="Avatar">` :
+                            `<i class="fa fa-user text-gray-500 text-sm"></i>`
+                        }
+                    </div>
+                </td>
+                <td class="px-4 py-3 text-sm text-center text-nowrap">${user.NgayTao}</td>
+                <td class="px-4 py-3 text-sm text-center text-nowrap">
+                    <div class="flex justify-center items-center gap-2 whitespace-nowrap">
+                        <button onclick="openEdit(${index})"
+                            class="px-3 py-1 text-xs rounded bg-blue-500 text-white hover:bg-blue-600">
+                            Sửa
+                        </button>
+                        <button onclick="deleteUser(${index})"
+                            class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">
+                            Xóa
+                        </button>
+                    </div>
+                </td>
+            </tr>`;
+            tbody.innerHTML += row;
+        });
+
+        feather.replace();
+    })
+    
+    .catch(error => {
+        console.error("Lỗi kết nối database:", error);
+        const tbody = document.getElementById("userTable");
+        tbody.innerHTML = `
+        <tr>
+            <td colspan="11" class="px-6 py-4 text-center text-red-500">
+                ❌ Không thể kết nối database<br>
+                <small>Lỗi: ${error.message}</small><br>
+                <small>Hãy đảm bảo: 1) MySQL đang chạy 2) Database 'qlynguoidung' tồn tại 3) Mở qua web server</small>
+            </td>
+        </tr>`;
+    });
+</script>
+
+<script>
+    let mode = "add";
+    let editIndex = null;
+    
+    function applyFeather() {
+        feather.replace();
+    }
+
+
+
+    /* ===== MODAL ===== */
+    function openAdd() {
+        mode = "add";
+        editIndex = null;
+        document.getElementById("modalTitle").innerText = "Thêm người dùng";
+        clearForm();
+        
+        // Ẩn trường mật khẩu hiện tại khi thêm mới
+        document.getElementById('currentPasswordDiv').classList.add('hidden');
+        document.getElementById('passwordLabel').innerHTML = 'Mật khẩu <span class="text-red-500">*</span>';
+        document.getElementById('MatKhau').placeholder = 'Nhập mật khẩu';
+        
+        // Tự động tạo mã người dùng mới
+        generateNewUserCode();
+        
+        showModal();
+    }
+    
+    function generateNewUserCode() {
+        let newId = 1;
+        
+        if (window.users && window.users.length > 0) {
+            // Tìm tất cả các số ID hiện có
+            const existingIds = window.users.map(u => {
+                const match = u.MaND.match(/ND(\d+)/);
+                return match ? parseInt(match[1]) : 0;
+            }).filter(id => id > 0);
+            
+            // Tìm ID lớn nhất và tăng lên 1
+            if (existingIds.length > 0) {
+                newId = Math.max(...existingIds) + 1;
+            }
+        }
+        
+        // Tạo mã mới với format ND + 3 chữ số
+        const newCode = 'ND' + String(newId).padStart(3, '0');
+        document.getElementById('MaND').value = newCode;
+        
+        console.log('Generated new user code:', newCode);
+    }
+
+    function openEdit(index) {
+        mode = "edit";
+        editIndex = index;
+        document.getElementById("modalTitle").innerText = "Sửa người dùng";
+
+        const u = window.users[index];
+        document.getElementById('MaND').value = u.MaND;
+        document.getElementById('HoTen').value = u.HoTen;
+        document.getElementById('Email').value = u.Email;
+        document.getElementById('SoDT').value = u.SoDT;
+        document.getElementById('NgaySinh').value = u.NgaySinh;
+        document.getElementById('ThanhPho').value = u.ThanhPho;
+        document.getElementById('TenDN').value = u.TenDN;
+        document.getElementById('QuyenHan').value = u.QuyenHan;
+        
+        // Hiển thị trường mật khẩu hiện tại khi sửa
+        document.getElementById('currentPasswordDiv').classList.remove('hidden');
+        document.getElementById('passwordLabel').innerHTML = 'Mật khẩu mới (để trống nếu không đổi)';
+        document.getElementById('MatKhauHienTai').value = '';
+        document.getElementById('MatKhau').value = '';
+        document.getElementById('MatKhau').placeholder = 'Để trống nếu không đổi mật khẩu';
+        
+        // Hiển thị avatar có sẵn
+        showExistingAvatar(u.Avatar);
+
+        showModal();
+    }
+
+        async function saveUser() {
+            const data = {
+                MaND: document.getElementById('MaND').value.trim(),
+                HoTen: document.getElementById('HoTen').value.trim(),
+                Email: document.getElementById('Email').value.trim(),
+                SoDT: document.getElementById('SoDT').value.trim(),
+                NgaySinh: document.getElementById('NgaySinh').value.trim(),
+                ThanhPho: document.getElementById('ThanhPho').value.trim(),
+                TenDN: document.getElementById('TenDN').value.trim(),
+                QuyenHan: document.getElementById('QuyenHan').value.trim(),
+                Avatar: document.getElementById('Avatar').value.trim(),
+                MatKhau: document.getElementById('MatKhau').value.trim(),
+                MatKhauHienTai: document.getElementById('MatKhauHienTai').value.trim()
+            };
+
+            // Debug: In ra dữ liệu để kiểm tra
+            console.log('Mode:', mode);
+            console.log('Data being sent:', data);
+            
+            // Validate dữ liệu
+            if (!data.MaND || !data.HoTen || !data.Email || !data.TenDN || !data.ThanhPho || !data.QuyenHan) {
+                alert("❌ Vui lòng nhập đầy đủ thông tin bắt buộc:\n" +
+                      "- Mã ND: " + (data.MaND ? "✓" : "✗") + "\n" +
+                      "- Họ tên: " + (data.HoTen ? "✓" : "✗") + "\n" +
+                      "- Email: " + (data.Email ? "✓" : "✗") + "\n" +
+                      "- Tên đăng nhập: " + (data.TenDN ? "✓" : "✗") + "\n" +
+                      "- Thành phố: " + (data.ThanhPho ? "✓" : "✗") + "\n" +
+                      "- Quyền hạn: " + (data.QuyenHan ? "✓" : "✗"));
+                return;
+            }
+
+            // Validate quyền hạn cụ thể
+            if (!['Quản trị viên', 'Khách hàng'].includes(data.QuyenHan)) {
+                alert("❌ Quyền hạn phải là 'Quản trị viên' hoặc 'Khách hàng'");
+                return;
+            }
+
+            // Validate mật khẩu khi thêm mới
+            if (mode === 'add' && !data.MatKhau) {
+                alert("❌ Vui lòng nhập mật khẩu khi thêm người dùng mới");
+                return;
+            }
+
+            // Validate mật khẩu hiện tại khi sửa
+            if (mode === 'edit' && !data.MatKhauHienTai) {
+                alert("❌ Vui lòng nhập mật khẩu hiện tại để xác nhận");
+                return;
+            }
+
+            // Validate email
+            if (data.Email && !data.Email.includes('@')) {
+                alert("❌ Email không hợp lệ");
+                return;
+            }
+
+            // Validate phone
+            if (data.SoDT && !/^\d{9,11}$/.test(data.SoDT)) {
+                alert("❌ Số điện thoại phải từ 9-11 chữ số");
+                return;
+            }
+
+            try {
+                let response;
+                let apiUrl;
+                
+                if (mode === "add") {
+                    apiUrl = '../api/user/add_user.php';
+                } else {
+                    apiUrl = '../api/user/update_user.php';
+                }
+                
+                console.log('Sending request to:', apiUrl);
+                console.log('Request data:', JSON.stringify(data, null, 2));
+                
+                response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                
+                const responseText = await response.text();
+                console.log('Raw response:', responseText);
+                
+                let result;
+                try {
+                    result = JSON.parse(responseText);
+                } catch (parseError) {
+                    console.error('JSON parse error:', parseError);
+                    alert('❌ Lỗi phản hồi từ server: ' + responseText);
+                    return;
+                }
+                
+                if (result.success) {
+                    alert('✅ ' + result.message);
+                    closeModal();
+                    location.reload(); // Tải lại trang để cập nhật dữ liệu
+                } else {
+                    console.error('Server error:', result);
+                    alert('❌ ' + (result.error || 'Lỗi không xác định'));
+                }
+                
+            } catch (error) {
+                console.error('Network error:', error);
+                alert('❌ Lỗi kết nối server: ' + error.message);
+            }
+        }
+
+    async function deleteUser(index) {
+        const user = window.users[index];
+        
+        if (confirm(`Bạn có chắc muốn xóa người dùng "${user.HoTen}"?`)) {
+            try {
+                const response = await fetch('../api/user/delete_user.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ MaND: user.MaND })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('✅ ' + result.message);
+                    location.reload(); // Tải lại trang để cập nhật dữ liệu
+                } else {
+                    alert('❌ ' + result.error);
+                }
+                
+            } catch (error) {
+                console.error('Lỗi:', error);
+                alert('❌ Lỗi kết nối server');
+            }
+        }
+    }
+
+    /* ===== UTILS ===== */
+    function showModal() {
+        document.getElementById("userModal").classList.remove("hidden");
+        document.getElementById("userModal").classList.add("flex");
+    }
+    function closeModal() {
+        document.getElementById("userModal").classList.add("hidden");
+    }
+    function clearForm() {
+        // Reset tất cả input fields
+        document.querySelectorAll("#userModal input").forEach(i => {
+            if (i.type !== 'file') {
+                i.value = "";
+            }
+        });
+        
+        // Reset tất cả select fields
+        document.querySelectorAll("#userModal select").forEach(s => {
+            s.selectedIndex = 0;
+        });
+        
+        // Xóa preview avatar
+        document.getElementById('avatarPreview').classList.add('hidden');
+        document.getElementById('previewImg').src = '';
+        document.getElementById('AvatarFile').value = '';
+        
+        // Reset trường mật khẩu hiện tại
+        document.getElementById('MatKhauHienTai').value = '';
+        
+        console.log('Form cleared');
+    }
+    
+    // Xử lý preview avatar
+    function previewAvatar(input) {
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+            
+            // Kiểm tra kích thước file (max 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('❌ Kích thước ảnh không được vượt quá 2MB');
+                input.value = '';
+                return;
+            }
+            
+            // Kiểm tra định dạng file
+            if (!file.type.startsWith('image/')) {
+                alert('❌ Vui lòng chọn file ảnh (jpg, png, gif...)');
+                input.value = '';
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('previewImg').src = e.target.result;
+                document.getElementById('avatarPreview').classList.remove('hidden');
+                
+                // Lưu base64 vào hidden input
+                document.getElementById('Avatar').value = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+    
+    // Xóa avatar
+    function removeAvatar() {
+        document.getElementById('AvatarFile').value = '';
+        document.getElementById('Avatar').value = '';
+        document.getElementById('avatarPreview').classList.add('hidden');
+        document.getElementById('previewImg').src = '';
+    }
+    
+    // Hiển thị avatar có sẵn khi edit
+    function showExistingAvatar(avatarData) {
+        if (avatarData && avatarData.trim()) {
+            document.getElementById('previewImg').src = avatarData;
+            document.getElementById('avatarPreview').classList.remove('hidden');
+            document.getElementById('Avatar').value = avatarData;
+        } else {
+            document.getElementById('avatarPreview').classList.add('hidden');
+        }
+    }
+    function limitPhone(input) {
+        input.value = input.value.replace(/\D/g, '');
+
+        if (input.value.length === 1 && input.value[0] !== '0') {
+            input.value = '';
+            return;
+        }
+
+        if (input.value.length > 10) {
+            input.value = input.value.slice(0, 10);
+        }
+    }
+    
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    feather.replace();
+});
+</script>
+</body>
+</html>
