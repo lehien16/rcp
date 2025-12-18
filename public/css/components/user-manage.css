@@ -1,0 +1,41 @@
+nav div i,
+nav div span {
+    color: #4a4a4a;
+}
+nav div:hover i,
+nav div:hover span,
+nav div.active i,
+nav div.active span {
+    background: linear-gradient(
+        to bottom,
+        hsl(24, 89%, 29%) 0%,
+        #8a3b08 40%,
+        #e59d2c 50%,
+        #384d64 80%,
+        #2e4365 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+nav div {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+nav div:hover {
+    background-color:  rgba(246, 185, 59, 0.2);;
+    border-left: 4px solid #e55039;
+    background-color: rgba(212, 160, 23, 0.08);
+}
+
+#shared-sidebar {
+    display: block;
+}
+#shared-sidebar > * {
+    height: 100vh;
+    min-height: 100vh;
+}
+
+
+
